@@ -13,3 +13,10 @@ __pycache__/
 *.xlsx
 *.xls
 .~lock.*
+
+
+# Dataset folders - contain scripts already tracked individually via /scripts,
+# these local copies exist only for the raw/cleaned data files they hold
+funding_archive_2000_2018/
+funding_legacy_2020_2023/
+funding_live_2023_current/
