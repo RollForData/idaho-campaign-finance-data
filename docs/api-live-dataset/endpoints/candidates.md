@@ -36,7 +36,7 @@ Parameter Type follows this convention:
 **Type:** Data Retrieval Endpoint
 **Parameter Type:** Mixed — `filerTypeCode: "CAN"` is fixed by the page; the remaining fields (search name, party, district, office, jurisdiction, fundraising ranges, pagination) are user-controlled filter and search criteria.
 
-The primary endpoint powering the Candidates results table. Despite its name, this same endpoint also serves Committee records elsewhere in the app (see [committees.md](committees.md)) — the entity type returned is determined entirely by `filerTypeCode` in the request payload, not by the endpoint itself.
+The primary endpoint powering the Candidates results table.
 
 **Request payload (abbreviated, key fields):**
 ```json
@@ -201,4 +201,3 @@ Returns filer status values used to populate the visible Account Status filter d
 ## Notable Page-Level Findings
 
 - **Election Year vs. Filing Year:** these are two distinct concepts on this system. Election years only extend back to 2024; filing years extend back to 2020. This directly affects how legacy data (2020–2023) should be reconciled against this data model — a report can be filed well before the earliest available election year.
-- **Endpoint naming can be misleading:** `GetCandidateDetails` serves both Candidate and Committee records depending on the `filerTypeCode` sent, not just candidates as its name implies.

@@ -28,7 +28,7 @@ This page shares its core template with the Candidates page — most endpoints b
 **Type:** Data Retrieval Endpoint
 **Parameter Type:** Mixed — `filerTypeCode: "COM"` is fixed by the page; the remaining fields (search name, party, district, office, jurisdiction, fundraising ranges, pagination) are user-controlled filter and search criteria.
 
-This is the same underlying endpoint as `GetCandidateDetails` on the Candidates page — confirmed identical URL, request shape, and response schema, differing only in the `filerTypeCode` sent in the payload (`COM` here, `CAN` on Candidates). Despite the URL implying a candidate-specific endpoint, it serves both entity types depending on this one parameter.
+This is a separate endpoint from `GetCandidateDetails` on the Candidates page — a distinct URL, not the same endpoint reused. It shares a nearly identical request payload shape and response schema with `GetCandidateDetails`, and both endpoints send a `filerTypeCode` value (`COM` here, `CAN` on Candidates) even though the entity type is already implied by which URL is called. Worth noting as a pattern: the API appears to duplicate this endpoint per entity type rather than using one shared endpoint with a type parameter, unlike some other pages in this system.
 
 **Request payload (abbreviated, key fields):**
 ```json
@@ -187,4 +187,3 @@ Identical response to the Candidates page.
 
 - **This page confirms the shared-template pattern first suspected on Candidates.** Several reference lookups (Filer Status, Jurisdiction) that fire but appear to do nothing on the Candidates page turn out to be genuine, active filters here. This is strong evidence that Candidates, Committees, and (likely) Central Committee all share one underlying page template, with each individual page simply not rendering the filters it doesn't need — the lookup calls fire regardless.
 - **Confirmed via request blocking**, not just inference: selectively blocking a request and reloading the page directly proved which shared lookups are load-bearing on this page (Party, Filer Status, Jurisdiction) versus genuinely inert leftovers (District Type, District-by-Type). This is a reliable, repeatable technique for resolving "does this call actually do anything" questions on this API, rather than guessing from endpoint naming.
-- **`GetCandidateDetails` and `GetCommitteeDetails` are confirmed to be the same endpoint** serving different entity types based on the `filerTypeCode` payload value, not two independently-built endpoints. This pattern — a single endpoint quietly serving multiple purposes under a name that implies only one — is worth checking for on every endpoint in this API before assuming it's page-specific.
