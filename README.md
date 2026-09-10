@@ -41,6 +41,7 @@ This is a research-and-discovery phase across all three datasets. What's finishe
     │   │   └── live.md
     │   ├── api-live-dataset/
     │   │   ├── README.md
+            ├── ERD_api-live-dataset_V1.png        
     │   │   └── endpoints/
     │   │       ├── candidates.md
     │   │       ├── committees.md
